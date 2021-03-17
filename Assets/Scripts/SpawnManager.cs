@@ -6,10 +6,12 @@ public class SpawnManager : MonoBehaviour
 {
   public GameObject prefab;
   private Vector3 spawnPos = new Vector3(15f, 0, 0);
+  private PlayerController playerController;
 
   // Start is called before the first frame update
   void Start()
   {
+    playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     InvokeRepeating("SpawnObstacle", 1.5f, 1.5f);
   }
 
@@ -21,6 +23,9 @@ public class SpawnManager : MonoBehaviour
 
   void SpawnObstacle()
   {
-    Instantiate(prefab, spawnPos, prefab.transform.rotation);
+    if(!playerController.gameOver)
+    {
+      Instantiate(prefab, spawnPos, prefab.transform.rotation);
+    }
   }
 }
